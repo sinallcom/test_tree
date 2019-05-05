@@ -2,7 +2,22 @@ import unittest
 
 
 class SymbolTree:
-    # This is a Node class that is internal to the tree class.
+    """
+        A class used to represent a Tree
+
+        ...
+
+        Methods
+        -------
+        parse_list(list_part)
+            First method that we should call. It parse from list to tree
+        get_max_level()
+            Find the longest way from start to end node
+        walk_tree()
+            Go through tree and return all the words or yield each of them
+        find(word)
+            return True if given word exists in your tree
+        """
     class Node:
 
         def __init__(self, name=''):
@@ -19,6 +34,7 @@ class SymbolTree:
         return self._recursive_find(self.root_node, word)
 
     def print_nodes(self, parent_node=None, depth=0):
+        # This method is for simple pretty print of whole tree
         if parent_node is None:
             parent_node = self.root_node
         s = 'Node: ' + str(parent_node.name) + ', word_end:' + str(parent_node.word_end) \
@@ -30,14 +46,17 @@ class SymbolTree:
                 self.print_nodes(item, depth + 1)
 
     def get_max_level(self):
+        # returns max tree level
         return self._get_max_level(self.root_node, 0) + 1
 
     def walk_tree(self):
+        # return dict with all words from internal tree
         result = []
         self._walk_tree(self.root_node, '', result)
         return result
 
     def parse_list(self, list_part):
+        # create tree from dict
         list_part.sort()
         self.root_node = self._parse_list('', list_part, 0)
 
